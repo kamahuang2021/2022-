@@ -1,0 +1,61 @@
+这个教程选自阮一峰的日志
+
+把代码变成可执行文件，叫做编译。先编译这个，还是那个，对于这种顺序的构建，叫做build
+
+Make是最常见的构建工具，主要用于C语言的项目，只要某个文件有变化，就要重新构建项目，都可以用make构建。
+
+Make英文就是只做的意思，制作某个文件，你想制作某个文件，就用make + name.txt就可以了，但是make其实并不明白怎么只做这个txt file.
+
+有的时候，不能够直接make A这个文件，但是可能A是由B和C两个txt file构成的，那你需要在make file当中把这个dependency写出来。
+
+make -f rules.txt
+
+上面代码指定make命令，根据rules.txt的规则进行构建
+
+所以make只是一个根据指定shell命令构建的工具，它的规则很简单，如果构建规则有变化的时候，就要重新构建。
+
+
+Makefile文件的格式：构建规则都写在Makefile里面，Makefile文件由一系列规则构成，每条规则的形式如下：
+
+<target> : <prerequisites>
+[tab] <commands>
+
+目标是必须的，不可以省略。前置条件和命令都是可以选择的，但是两者必须有一个。每条规则就是明确两件事：构建目标的前置条件是什么，以及如何构建。
+
+一个target就构成一个规则，目标通常是文件名，比如刚才提到的A.txt,也可以是多个文件名，之间用空格分割。
+
+target除了是文件名之外，还可以是某个操作的名字，成为“伪目标”
+
+Make命令运行的时候如果没有指定目标，默认会执行makefile的第一个目标
+
+前置条件：前置条件通常是一组文件名，之间用空格分开，它指定了是否重新构建的判断标准：只要有一个前置文件不存在，或者有过更新，“目标”就需要重新构建
+
+result.txt: source.txt
+	cp source.txt result.txt
+
+result.txt的前置条件就是source.txt,如果source.txt已经存在，那么make result.txt就可以正常运行。否则就需要再写一条规则，来生成source.txt
+
+如果需要生成多个文件，往往采用下面的写法：
+source: file1 file2 file3
+
+make source
+执行这个make source命令之后，就会一次生成file1, file2, file3三个文件
+
+
+command:表示如何更新目标文件，由一行或者多行shell命令组成，它是构建“目标”的具体指令，运行结构就是生成目标文件。记得在command之前加tab。需要注意的是，每行命令在一个单独的shell里面进行，这些shell之间没有相互的继承关系。
+
+	export foo = bar
+	echo "foo=[$$foo]"
+
+这两个命令在不同的shell里面进行，有三种解决方法：
+1. 把两个命令写在一行，中间用；分割
+2. 在换行之前加反斜杠转义\
+3. 加上.ONESHELL:命令
+
+.ONESHELL:
+var-kept:
+	export foo=bar
+	echo "foo=[$$foo]"
+
+
+Makefile文件的语法，有点复杂，之后做project的时候再仔细看，好像需要一些shell的语法。
