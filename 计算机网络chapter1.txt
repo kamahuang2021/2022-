@@ -1,0 +1,52 @@
+- 计算机网络chapter1:
+- 端系统通过communication link(通信链路)和packet switch(分组交换机)连接到一起。当一台端系统像另一个端系统发送数据的时候，发送端系统将数据分段，为每段加上首部字节，由此形成信息包(packet).这些分组通过网络发送到目的端系统，在那里被装配成初始数据。
+	- 两种最著名的分组交换机：router 和 link-layer switch.一个分组所经历的一系列通信链路和分组交换机成为改网络的path，路径。
+	- 比喻：卡车通过高速公路/公路/立交桥，把货物运到目的地。卡车相当于分组packet,通信链路communication link相当于高速公路和公路，分组交换机packet switch相当于立交桥，端系统host相当于建筑物。
+- 端系统通过ISP接入因特网。
+- 端系统，分组交换机和其他因特网部件都必须遵守协议protocol.这些协议控制因特网中信息的传送和接收。TCP和IP是因特网中最重要的两个协议。
+-
+- 还有一个角度可以描述因特网：给应用程序提供基础设施。因特网是应用程序的平台。
+-
+- 与英特网相连的端系统提供了一个API，该API规定了运行在端系统上面的应用软件向运行在另一个端系统中的应用软件交付数据的方式，比如Alice去邮局寄信给Bob,寄送过程中邮局的一系列流程就叫做API，这个邮局的执行方式是邮局自己规定的，和Alice无关。
+-
+- 网络组件---网络边缘
+- 1. 端系统，host / client
+  2.接入网access network,将端系统连接到边缘路由器edge router的物理链路。边路由器是端系统到任何远程系统路径上的第一台路由器。
+- 网络组件---网络核心：
+- 1. 分组交换机packet switch。将message分为小的数据块，叫做packet分组。在source和destination之间，每个packet通过communication link和packet switch传送。
+-
+-
+- store and forward transmission:指分组交换机在收到整个package之后再把packet传送到destination
+- 每个分组交换机与多条链路相连，对于每条相连的communication link，改交换机只有一个输出缓存output buffer.也叫做output queue, 如果packet需要传输到某条communication link.但是这条link正在传输其他数据，那么这个packet将会在output queue中等待。但是output queue的容量是有限的，如果超过容量，这个packet将会被丢失，package lost.
+-
+- 转发表和路由选择协议：
+- 路由器在同他相连的communication link中得到packet,但是它怎么决定应该从哪条comminication link进行转发呢？不同的网络用的是不同的协议。每一个端都有一个ip地址，packet 的header里面有dest的ip地址，每个路由器都有一个转发表(forward table), forward table会把目的的ip地址的一部分转化成communication link. 做个比喻，很像货车司机想要从A到达B，在路途中来到一个加油站，加油站告诉司机下一步应该从哪个路口出发。
+-
+-
+- 分组交换网中的时间延迟：
+- packet从source到destination会经历几种延迟：
+- 1. 节点处理延迟： node processing delay
+	2. 排队延迟：queueing delay
+	3. 传输延迟：transimission delay
+	4. 传播延迟：propagation delay
+	5. 节点总延迟：node total delay
+
+  6.
+- background info: packet在等待被处理的时候，需要看路由器怎么分配communication link.如果被分配到的communication link中正在处理其他packet，那么此时的packet就会进入一个queue.
+-
+- node processing delay就是background info中的例子。
+- queueing delay讲的是background info
+- transimission delay讲的也是background info
+- propagation delay讲的是物理光纤中的delay
+-
+-
+- 计算机网络体系把网络协议分层，按照自顶向下的方法，分为如下层：
+- 1. 应用层： 每个端的程序和另一个端的程序进行交互message
+	2. 运输层： 端点之间message，TCP和UDP。我们把运输层分组称为segment
+	3. 网络层: IP协议
+	4. 链路层：
+	5. 物理层：
+
+-
+- 封装：encapsulation:
+- 一个应用层的message被传送在运输层，运输层收到message,并且加上运输层的信息，两者构成了一个transport segment, 运输层向网络层传输这个信息，网络层在此信息基础上，增加了source和destination端系统的网络层信息，产生了network layer datagram, 然后被传给链路层，链路层增加链路层首部信息，创建 link layer frame.所以对于每一层，都有两个字段，首部字段和payload field.
