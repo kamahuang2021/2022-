@@ -1,0 +1,49 @@
+1. maven is a popular open source build tool to build, publish and deploy projects at once.
+
+为什么有了IDE还需要maven呢？比如用spring MVC, 需要用到很多libraries还有dependencies.比如现在写的是java7的项目，现在需要变成java8，怎么样才能自动创建这些依赖关系呢？使用maven
+
+
+2. Maven is written in Java and used to build projects written in C, Scala, Ruby
+
+3. The tool is used to build and manage any java-based project. It simplies the day to day work of java developers.
+
+Maven takes care of the following things:
+1. builds
+2. dependencies
+3. reports
+4. distribution
+5. releases
+6. mailing list
+
+如果local repo里面需要什么东西，会到maven center里面查看，如果maven center里面有吗，直接发送给local.如果maven center里面没有，maven center会先用network去server终端fetch，然后再发送到local repo.
+
+
+maven's life cycle:
+default: main life cycle, 
+site life cycle,
+clean life cycle.
+
+
+maven的每一个cycle里面有好几个phase,每个phase对应的是一个task.如果我们run特定的一个phase的命令，那么这个phase之前所有的命令也会被运行。
+
+different maven phases and goals:
+
+compiler phase: the goal is to compile
+package phase
+test phase
+
+maven has lots of plugins, each plugin mapps to a goal in a phase.A plugin can also map to different goals. 
+
+why using maven? Can make build the program clean, fast and easy.
+
+在youtube演示中，用到了testNG还有Selenium,所以要把这两个dependency加到pom.xml file当中. how to do this?
+
+google maven selenium, search a stable version of selenium, copy it to xml file.
+
+testNG the same way to do it.
+
+同样在build tag里面，需要加上plugins
+
+如何用maven运行project?右击package,run,可以选择某一个maven的phase. 比如maven build clean
+
+This is all about MY FIRST CLASS IN MAVEN!!!! YAY!!!
