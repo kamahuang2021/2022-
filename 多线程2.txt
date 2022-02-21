@@ -1,0 +1,124 @@
+多线程第二天课程：
+
+静态代理： static proxy, 就像婚庆公司承包你的婚礼一样。代码实现
+
+
+class staticProxy {
+
+
+}
+
+class You implements Marry {
+	@Override
+	public void HappyMarry() {
+		System.out.println();
+	}
+
+}
+
+class WeddingCompany implements Marry {
+	private Marry target;
+	
+	public WeddingCompany(Marry target) {
+		this.target = target;
+	}
+
+	@Override
+	public void HappyMarry() {
+		before();
+		this.target.HappyMarry();
+		after();
+	}
+
+}
+
+总结：静态代理
+1. 真实对象和代理对象都要实现同一个接口
+2. 代理对象要代理真实角色
+
+这里weddingcompany的角色和thread一模一样，thread运行的时候也会implement runnable接口。
+
+Lamda表达式：
+任何接口，如果只包含一个抽象方法，那么就是一个函数式接口
+public interface Runnable {
+	public abstract void run();
+
+}
+
+对于函数式接口，我们可以通过lamda表达式来创建改接口的对象。
+
+推导lamda表达式：
+
+interface ILike {
+	void abstract lamda();
+}
+
+class Like implements ILike {
+	@Override
+	public void lamda() {
+		System.out.println("I like Lamda");
+	}
+}
+
+public static void main(String[] args) {
+	ILike like = new Like();
+	like.lamda();
+}
+
+对上述方法的优化1：外部类可以放到class里面，变成内部静态类
+对上述方法的优化2：外部类放到main()函数里面，叫做局部内部类
+对上述方法的优化3：匿名类。所谓匿名类，就是new interface,或者new 父类,然后override interface里面的类
+对上述方法的优化4： lamda, 不用new,直接用函数体里面的内容
+
+like = ()-> {System.out.println("I Like Lamda");};
+
+-------------------------------------------------------------------------------
+
+线程状态：5个
+创建状态，new thread
+就绪状态，start thread之后
+（在等待获取cpu资源之后）到达运行状态
+运行状态期间，可以进入阻塞状态（sleep), sleep之后可以重新回到就绪状态，再次等待CPU
+运行状态之后，还可以进入死亡状态，意味着线程自然执行完毕，外部干涉终止线程。
+
+
+线程方法有哪些：
+setPrioroty(int newPriority) 更改线程的优先级
+static void sleep(long millis) 在指定的毫秒数内让当前正在执行的线程休眠
+void join() 等待该线程终止
+static void yield() 暂停当前正在执行的线程对象，并且执行其他线程
+void interrupt() 中断线程，尽量不要适用这个方式
+boolean isAlive() 测试线程是否处于活动状态
+
+
+线程停止：
+1. 不建议适用jdk提供的stop(), destroy()方法
+2. 推荐线程自己停下来
+3. 建议使用一个标志位进行终止变量，当flag == false,终止线程运行。
+
+线程休眠：
+sleep(时间)指定当前线程阻塞的毫秒数
+sleep存在已成interruptedException
+sleep时间到达后进程进入就绪状态
+sleep可以模拟网络延时，倒计时等
+每个对象都有一个锁，sleep不会释放锁
+
+最后一句话不理解可以跳过，只需要记住。
+
+线程礼让：
+1. 让当前正在执行的线程暂停，但是不阻塞
+2. 讲线程从运行状态变成就绪状态
+3. 让cpu重新调度，礼让不一定成功，看cpu心情！！
+
+
+线程强制执行：join()
+可以想象成插队，此线程执行完成之后，在执行其他线程，其他线程阻塞
+
+线程装填观测Thread.state
+线程可以处于一下几个状态之一：
+New: 尚未启动的线程处于次装填
+Runnable: 在Java虚拟机中执行的线程处于此状态
+Blocked:被阻塞等待监视器锁定的线程处于此状态
+Waiting:正在等待另一个线程执行特定动作的线程处于此状态
+Timed_waiting: 正在等待另一个线程执行动作达到指定等待时间的线程处于此状态
+Terminated:已退出的线程处于此状态。
