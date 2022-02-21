@@ -1,0 +1,42 @@
+- 狂神聊git
+- 一些基本的linux命令
+- exit 退出
+- clear 清屏
+- history 查看命令历史
+- help 帮助
+- touch 在当前命令下新建一个文件，比如touch + name
+- [#]注释
+- reset 重新初始化然后清屏
+- rm -r 删除一个文件夹，包括里面的所有东西
+- mv src dest 两个必须在同一目录下
+-
+-
+- 常用的git 命令
+- git config --global : 看本地的git配置环境
+-
+- git 的三个阶段(从本地到remote)
+- git add: local 添加到暂存区
+- git commit: 暂存区到repo
+- git push: repo到远程repo
+-
+- git 的三个阶段reverse(从remote到local)
+- git checkout: 从暂存区到local
+- git reset: 从repo到暂存区
+- git pull: 从remote repo到本地repo
+-
+-
+- git实战
+- 创建本地仓库：git init
+- 想知道目前三个区域的状态，比如有没有什么未被追踪的文件：git status
+- git clone + rul, 把远程仓库clone下来
+-
+- git中的分支命令：
+- git branch: 列出所有分支
+- git branch -r : 列出所有远程分支
+- git branch [branchName]: 新建一个分支，但是依然停留在当前分支
+- git checkout -b [branchName]:新建一个分支，然后切换到该分支
+- git merge [branchName]: 合并制定分支到当前分支
+- git branch -d [branchName]: 删除分支
+- 删除远程分支：
+- git push origin --delete [branchName]
+- git branch -dr [remote/branch]

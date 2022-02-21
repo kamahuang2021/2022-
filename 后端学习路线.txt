@@ -1,0 +1,45 @@
+根据网上资料整理的后端学习路线：
+
+
+https://www.bilibili.com/video/BV1GQ4y1N7HD
+
+
+
+java部分：
+1. java基础
+2. java多线程（并发 + 容器），这部分打算看狂神的视频
+3. jvm,这部分打算看收藏的尚硅谷宋宏康的视频 + 深入理解java虚拟机
+4. java设计模式，韩顺平尚硅谷视频
+
+
+专业课部分：
+1. 网络课：自顶向下教材 + standford cs 144
+2. 操作系统 ucb cs162
+
+
+数据库部分：
+mysql: 哔哩哔哩网课
+sql: 再去找一些资料
+
+工具：
+shell + git + maven + IDE + gradle
+
+后端：
+1. spring框架： spring + spring mvc + spring boot
+2. web服务器：Nginx
+3. 应用服务器：tomcat + undertow + jetty
+4. 中间件：缓存Redis + 消息队列(RocketMQ, RabbitMQ, Kafka) + RPC框架(Thrift, Spring Cloud)
+5. 数据库框架：Mybatis, Hibernate, JPA
+6. 连接池： D瑞典， C3P0 
+7。 分库分表： MyCAT, Sharding JDBC
+8. 搜索引擎：elacstic search
+9. 分布式/微服务：
+
+
+前端：
+基础套餐： 三大件（html + JS + CSS) + 基础库（JQuery, Ajax）
+模板框架：Thymeleaf, FreeMarker
+组件化框架：Vue + React + Angular + Node
+
+
+

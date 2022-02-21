@@ -1,0 +1,161 @@
+- week1 readings
+- packet distributed computing in Java
+- centralized computing: compute on single processor
+- parallel computing: compute on more than one processor simultaneously executing a single program. it is achieved with single computer with multiple CPU or multiple network connected computers
+-
+- 1. parallel system contains more than one processor
+	2. Uniform Memory Access architecture, meaning the processing time for accessing any particular location of memory from a particular processor is the same
+	3. the processors are connected in an interconnection network.
+	4. processor communication is happening throughout the shared memory.
+	5. The hardware and software are tightly coupled, the processors are running in the same operating system.
+
+- 另外一种parallel system的形式：multicomputer parallel system:
+- 1. processors do  not have direct access to shared memory
+	2. there is no common address space
+	3. computers in this category do not have a common clock
+	4. computers are also connected in network
+	5. processors communicate with either "common address space" or "message passing options"
+	6. Non_Uniform Memory Access architecture, accessing different memory locations in shared memory across different processors shows different times
+
+-
+- the primary benefit of parallel systems is to derive a better throughput through sharing the computational tasks between multiple processors. Tasks can be partitioned into multiple subtasks and need little communication. But they are not more efficient in recent times due to the following reasons:
+- 1. they need special configuration for compilers
+	2. the market is very small
+	3. the evolution of more powerful computers made it less likely to prefer parallel systems
+
+-
+-
+- distributed computing: more than one computer connected to a network to solve a problem. 在user端，the computing system appear as a single machine to users.听起来像是parallel computing 概念的generalization
+-
+- distributed computing is performed on a distributed system, that is a group of computers do not stake a common physical clock, no share memory, interact via network, runs on its own operating system, loosely coupled and address a problem collectively.比如很多家庭电脑链接网页，然后网页部署在web server上，web server再部署在data base上，这个布局就是distributed system
+-
+-
+- parallel versus distributed computing
+- 1.1 The main difference between the two is that the parallel system consists of multiple processors that communicate via shared memory. Distributed system contains multiple processors connected by a communication network. In the Parallel system, processors also contain their own allocated memory, which is not available by other processors.
+- 1.2 Youtube platform is a distributed system. The multiple users connect to youtube via the internet, and Youtube is deployed on a web server, which interacts with the database server. The users, Youtube, web server and database server constitute the distributed system.
+-
+-
+- distributed system shall be prefered for the following reasons:
+- 1. scalability, no shared memory, 
+	2. reliability
+	3. data sharing
+	4. resource sharing
+	5. modularity
+	6. geographic construction
+	7. economic
+
+-
+-
+- design considerations for distributed systems
+- the following are the design considerations that we shall use distributed system:
+- 1. distributed system cannot be expected to have a common clock, and this gives chance for intrinsic asychronology between processors performing the computing. The system communicates with each other through messages instead of time-based events.
+
+
+  
+	2. geographical distribution: The individual systems are expected to connect via WAN. NOW is wide spread with low cost.
+	3. No shared memory. Distributed system does not have shared memory, which means nonexistence of physical clock.
+	4. Independence and heterogeneity: are loosely coupled so that they have their own individual capabilities in terms of speed and method of execution. They cooperate with one another by exposing the services or executing tasks together as subtasks.
+	5. Fail-over mechanism: fail in integeration as well as individual sub systems. The error in network could isolate an individual or a group of computers, but they might still be executing program which they expected to do. A failure of a system might not be detected immediately by the other systems.
+	6. Security Concerns: distributed systems are set up on shared internet so they are prone to more attacks and vulnerabilities.
+
+-
+-
+- java socket programming chapter 13
+- 2. 1 Explain TCP/IP stacks. Explain TCP and UDP protocols and the difference between the two protocols.
+- Answer: TCP/IP stack is the service in the transport layer between a client machine and a server machine. The transport layer consists of two protocols: TCP and UDP.
+  TCP is a connection oriented protocol that provides a reliable flow of data between client and server. Applications using TCP are HTTP, FTP and Telnet.
+  UDP is a protocol that sends independent packets of data, and there is no guarantee of arrival and sequencing. Applications using UDP include Ping and
+- 2.2 What is a port? List well-known ports and application associated with them
+  Answer: Port is a positive 16-bit integer value. It is used by TCP and UDP protocols to map incoming data to a particular process running on a computer.
+  Ftp : 21
+  Telnet: 23
+  Smtp: 25
+  Login: 513
+  Http: 80
+  Https: 443
+-
+-
+- IP： each computer in internet has an IP address. it is further translated into url address. Internet packet contains both the destination of the host address, which is the ip and the port number on the host. The host computer dispatches the packets by looking the port number specified in the packets.寄信的话，加的地址就像是IP，port就像是寄给谁的。
+-
+- Socket and socket based communication
+- recall from the network book: socket是network layer 和transport layer之间的门。socket is an interface at the transport layer for networks.
+- socket based communication is independent of a programming language used to implement it. A socket program written in Java can communicate using non java language.
+- socket programming 的内容略去
+-
+-
+- distributed system design goals:
+- A distributed system is a collection of independent computers that are used to jointly perform a single task or to to provide a single service.
+-
+- hardware and software architectures:
+- the key characteristic of distributed system is that it includes both a hardware(independent computers) and a software aspect(performing a task and provide a service). From hardware perspective, they are implemented on multi computers. From a software point, they are generally implemented on distributed operating systems.
+-
+-
+- Multicomputers:
+- A multicomputer consists of separate computing nodes connected to each other. They differ to each other in 3 ways:
+- 1. node resources: this includes processors, amount of memory, amount of secondary storage
+	2. network connection
+	3. homogeneity: all the nodes are the same. they are based on the same physical architecture.
+
+-
+- distributed operating system:
+- distributed operating system is built, from ground up ,to provide distributed services.  DOS integrates key distributed services to its architecture. The services include distributed shared memory, assignment of tasks to processors, masking of failures, distributed storage, interprocess communication, transparent sharing of resources, distributed resource management.
+-
+- DOS users will not be aware that they are on a distributed system. Now, middleware is more suitable for heterogenousou and wide-area multi computers.
+-
+-
+- Middleware: the purpose of middleware is to create system independent interfaces for distributed applications.
+-
+- 第一层： kernel
+- 第二层：network OS services
+- 第三层：middleware services
+- 第四层: distributed applications
+-
+- Aim of middleware:
+- 1. communication mechanisms that are more convenient and less error prone than basic message passing
+	2. independence from OS, network protocol, programming language
+	3. standard services
+
+-
+- distributed system and parallel computing:
+- parallel computing employ multiple processors to execute a single application. They come in two flavors: shared memory system and distributed memory systems. The later one has independent nodes connected via network.
+-
+-
+- Distributed systems in context:
+- basic goals of distributed system:
+	- 1. transparency: concealment from the user and the application programmer of the separation of the components of a distributed system. there are a number of different forms of transparency including the following:
+	  1.1 access transparency: local and remote resources are accessed in the same way
+	- 1.2 location transparency: users are unaware of the location of resources
+	- 1.3 migration transparency: resources can migrate without name change
+	- 1.4 replication transparency: users are unaware of the existence of multiple copy of resources.
+	- 1.5 failure transparency: users are unaware of the failure of individual component
+	- 1.6 Concurrency transparency: users are unaware of sharing resources with others
+	-
+	- 3. scalability
+		4. dependability
+		5. performance
+		6. flexibility
+
+-
+-
+- key principles under distributed system:
+- system architecture
+- communication
+- synchronisation
+- replication and consistency
+- fault tolerance
+- security
+- naming
+-
+-
+- Most middleware systems/ distributed system are based on particular paradigm. Some of these paradigms are:
+- 1. shared memory
+	2. distributed objects
+	3. distributed file system
+	4. distributed coordination
+	5. service oriented architecture and web services
+	6. distributed databases
+	7. shared documents
+	8. agents
+
+-
+-
