@@ -1,0 +1,61 @@
+- 多线程 狂神说
+-
+- 多任务：边吃饭边玩手机，司机打电话+开车
+- 多线程：多条路多线执行任务
+-
+- 程序：
+- 进程：所有的程序都是一个进程，比如看视频：声音+图像+字幕，这个一个进程里面能够执行这么多事情，是因为有线程。声音是一个线程，图像也是，字幕也是
+- 线程：
+-
+-
+- process: 进程， 就是程序的一次执行过程
+- thread:线程，一个进程中还有多个线程，一个进程至少有一个线程，不然没有存在的意义，线程是cpu调度和执行的单位，真正执行的东西，是线程
+-
+- 我们最重要的也是学习线程
+- main()就是主线程，多线程现在是模拟出来的，只有一个CPU，CPU在一个时间点只能做一件事情，CPU切换非常快，所以有同时产生的错觉，比如边吃饭边玩手机，实际上是因为两者切换的时间很少
+-
+- 本章的核心概念：
+- 1. 线程就是独立的执行路径
+	2. 在程序运行时，即使没有自己创建线程，后台也有多个线程，比如主线程，gc线程
+	3. main()之所以成为主线程，是因为是系统的入口，用于执行整个程序
+	4. 在一个进程中，如果开辟了多个线程，线程的运行有调度器安排调度，调度器和操作系统是密切相关的，先后顺序是不能认为干预的
+	5. 对同一份资源操作时，会存在资源抢夺问题，需要加入并发控制
+	6. 线程会带来额外的开销，比如cpu调度时间，并发控制开销
+	7. 每个线程在自己的工作内容交互，内存控制不当会造成数据不一致。
+
+-
+- 三种创建线程的方式：
+- 1. 继承thread类
+	2. 实现runnable接口
+	3. 实现callable接口(了解即可)
+
+-
+- 1. 自己写一个类继承thread class, 然后重写run()方法，再创建线程对象，用start()方法启动线程
+-
+- public class StartThread extends Thread {
+	- @Override
+	- public void run() {
+		- //重写run方法
+	- }
+-
+- }
+-
+- public static void main() {
+	- StartThread t = new StartThread();
+	- t.start();
+- }
+-
+-
+- 2. 第二种方法是创建一个线程实现runnable接口，然后这个类实现run() 方法，在调用的时候哦把这个新创建的类的对象作为参数传到thread里面执行
+-
+- public class TestThread implements Runnable {
+	- public void run() {
+	-
+	- }
+- public static void main(String[] args) {
+	- TestThread testThread3 = new TestThread();
+	- Thread thread = new Thread(testThread3);
+	- thread.start();
+- }
+-
+- }
