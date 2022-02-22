@@ -1,0 +1,39 @@
+Heterogeneity: 
+They must be constructed from a variety of different networks, operating systems, computer hardware and programming languages. The Internet communication protocols mask the difference in networks, and the middleware can deal with other differences.
+Openness:
+The openness of a system is the characteristic that determines whether the system can be extended and re implemented in various ways. The openness of a distributed system is determined by the degree to which new resource-sharing services can be added and be made available for use.
+Openness can not be achieved unless the interface is open to the developers. That means, interfaces are published.
+Openness means the system can be extended at the hardware level by the addition of computers to the network and at the software level by the introduction of new services and the implementation of old ones. 
+
+To summarize: open systems are characterized by the fact that their key interfaces are published. Open distributed systems are based on provision of a uniform communication mechanism and published interfaces for access to shared resources. Open distributed systems can be constructed from heterogeneous hardware and software, possibly from different vendors.
+
+
+Security:
+Security has three components: confidentiality, integrity and availability.之后会将编码的部分
+
+
+Scalability:
+A system is described as scalable if it remains effective when there is significant increase in the number of resources and the number of users.
+
+Failure handling
+Several aspects of failure handling will be discussed in the book.
+
+Concurrency:
+There is a possibility that several  clients will attempt to access a shared resource at the same time. Services and applications generally allow multiple client requests to be processed concurrently.It is possible that several threads may execute concurrently within an object.
+Any object that represents a shared resource in a distributed system must be responsible for ensuring that it operates correctly in a concurrent environment. This applies not only to servers but also to objects in applications. 
+
+Transparency:
+Transparency is defined as the concealment from the user and the application programmer of the separation of components in a distributed system, so that the system is perceived as a whole rather than a collection of independent components.
+有个会议定义了8中形式的transparency:
+Access transparency: enables local and remote resources to be accessed using identical operations
+Location transparency: enables resources to be accessed without knowledge of their physical or network location
+Concurrency transparency: enables several processes to operate concurrently using shared resources without interference between them
+Replication transparency: enables multiple instances of resources to by used to increase reliability and performance without knowledge of the replicas by users or application programmers
+Failure transparency: enables the concealment of faults, allowing users and application programs to complete their tasks despite the failure of hardware or software components.
+Mobility transparency: allows the movement of resources and clients within a system without affecting the operation of users or programs
+Performance transparency: allows the system to be reconfigured to improve performances as loads vary.
+Scaling transparency: allows the system and applications to expand in scale without change to system structure or the application algorithms.
+
+Quality of Service:
+The main properties of systems that affect the quality of the service experienced by clients are reliability, security and performance. 
+
