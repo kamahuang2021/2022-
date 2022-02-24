@@ -1,0 +1,171 @@
+TCP 和 IP的区别：
+1. TCP在source和destination send package的时候会建立三次handshake.IP 是没有三次握手的。IP is a conenctionless protocol, which means each data is individually addressed and routed from the source device to destination device, and the destination service does not send the acknowledgement back to the source device.
+
+2. UDP 和 TCP的区别：UDP send package to the target device without establishing the connection first. TCP 会先建立connection,然后进行三次握手，再传输数据。UDP is less reliable than TCP.因为UDP不会三次握手，所以UDP的传输速度比TCP快很多。Also UDP is less reliable. If package is lost in TCP, TCP will require the source to resend. But UDP will not do this.
+
+3. IP 只负责传输，每一个packet传送到需要到达的device的IP地址，之后IP是combine with TCP 还是combine with UDP, depends.
+
+What is network protocol?
+
+What is IP address? How does IP addressing work?
+每一个packet上面都带有IP地址，这样能够确保传输到正确的终端
+
+
+distributed system chapter2:
+distributed system communication is different from single process communication. In single process, processors use shared memory for communication. Distributed system does not use shared memory. It complies the OSI model. This model partitions communication system into 7 layers, each layer helps its upper layer function and is supported by the its lower layer. 
+
+There are different remote application communication regimes:
+1. Network protocol stack
+2. Remote Procedure Call
+3. Remote Method Invocation
+4. Message queueing services(sockets)
+5. Stream oriented services
+
+some knowledge about network:
+TCP is a connection based protocol that provides a reliable flow of data between two computers.UDP is non connection based protocol that sends independant packets of data, called datagrams, from one computer to another with no guarantee the arrival of data.
+
+Upon receiving the data through UDP or TCO, how to know which program in the computer is used for this data? We can use port to identify where the data should go in the target computer.
+
+Binding an internet socket with transport protocol, a port number and an IP address is the first step of client-server communication.
+
+A port can be defined as a channel for passing the inbound data passed to a specific interface on the host computer using either TCP or UDP.
+
+A socket is a handle that a local program can pass to the networking API to connect yo another machine. It can be defined as the terminal of a communication link through which two programs running on the network can cmmunication with each other. The TCP layer can easily identify the application location and access informaion through the port number assigned to the respective sockets.
+
+Socket 包含一下两样东西：
+1. local ip addresa and host number
+2. which protocol it is used
+
+Take client-server communication for example:
+1. the client create a socket
+2. the server create a socket
+3. connection between the two is established
+
+
+Socket是一种机制，我记得自顶向下里面说的，socket是传输层和网络层之间的一扇门。
+
+UDP is weak connection. It cannot guarantee the arrival of the data. In TCP, if the destination cannot receive the data, it will ask to resend the data. BUT UDP cannot guarantee the integrity of the data. UDP is used when we do not care about the order of the packets when they are arrived. UDP is also used when the data can be splited into smaller sizes.
+
+刚才讲的是point to point communication,如果需要server端传输一个信息到很多client 端，可以用multicasting. 可以用到java的MulticastSocket class
+
+我们经常用UDP protocol来做multicasting
+
+URL can be defined as the address of a resource on the internet.
+URL有两个部分：
+1. protocol identifier
+2. resource name
+
+Java thread tutorial:
+1. A process can support multiple thread, which appear to execute simultaneously and asynchrnously to each other. Multiple threads within a process ahare the same memory address space, and allocate objects from tghe same heap.
+
+2. Every Java program has at least one thread, the main thread.
+
+When we talk about threads in java programs, there are two related entities that we may be referring to: the actual thread that is doing the work or the thread object that represents the thread.The running thread is generally created by the operating system. The thread object is created by JVM as a means of controlling the associated thread.
+
+
+How to join threads? Using join() method
+
+Communication among threads:
+1. You can use shared variables to share communication. You should also use synchronization to protect shared variables.
+
+All threads in a process share same memory and same resources within a process.
+
+Java Language provides two keywords for ensuring the data can be shared between two threads in a controlled manner: synchronized and volatile.
+
+Synchronized has two important meanings: 1. it ensures that only one thread executes a protected section of code t one time (mutex). It also ensures that data changed by one thread is visible to other threads.
+Without synchronization, it is easy for data to be left in an inconsistent state. 
+
+
+ensuring visibility of changes to shared data:
+synchronization allows us to ensure that threads see consistent views of memory.On some multi processor architectures, if a memory location is modified in the cache on one processor, it is not necessarily visible to other processors until the writer's cache is flushed and the reader's cache is invalidated.
+
+This means that on such systems, it is possible for two threads executing on two different processors to see two different values for the same variable. This means you have to follow some rules when accessing data used or modified by other threads.
+
+Volatile is simplier than synchronization and is suitable only for access to single instances of primitive variables. When a variable is declared volatile and write to that variable will go directly to main memory, while any read of that variable will come directly from main memory. This means all threads will see the same value for volatile variable at all times.
+
+Volatile is to ensure that threads can access the most recent variable value. But some times we want to protect larger scale of code blocks, meaning that the code blocks are atomic(either executed or not). We will use locks, or monitors to treat the blocks of code as a single part.
+
+Every java object is associated with a lock. when a thread entering the synchronized, it will wait for the lock. After getting the lock, the thread will execute the code block. The thread will release the lock after executing the code block.
+
+It is important to know that it's the identity of lock which protects the block of code, not the block itself. Only one thread may hold a lock at one time. One lock may protect many blocks of code.
+
+Conversly, just because a block of code is protected by a lock does not mean that two threads cannot execute that block at one. It only means that two threads cannot execute that block at once if they are waiting on the same lock. That means, if a code block is protected by two different locks, then to different threads can access the code at the same time.
+
+The simplist way to create a synchronized block is to declare a method as synchronized. For oridnary synchronized methods, this lock will be the object on which the method is being invoked. For static synchronized methods, the lock will be the monitor associated with the Class object in which the method is declared. 
+
+除了mutex以外，synchronization还有以下的特质：
+1. visibility
+When an objuect releases a lock, it flushes its cache, forcing any changes made to appear in main memory. Before an object releases a lock, it flushes its cache, forcing any changes made to appear in main memory.
+In this way, two threads that synchronize on the same lock are guanranteed to see the same values in varaibles modifed inside a synchronized block.
+
+
+2. when do you have to synchronize?
+2.1 whenever you are reading a variable that may have been last written by another thread
+2.2 writing a variable that may be read next by another thread.
+
+3. synchronization for consistency:
+
+
+When you do not need synchronize:
+1. when data is initialized by a static initializer
+2. when accessing final fields
+3. when an object is created before a thread is created
+4. when an object is already visible to a thread that it is then joined with
+
+
+Deadlock:
+Whenver you have multiple processes contending for exclusive access to multiple locks, there is a possibility of deadlock. A set of processes or threads is said to be deadlockied when each is waiting for an action that only of the others can perform.
+
+The most common form of deadlocking is threadA holding lock for objectA and waiting for lock in objectB. ThreadB has the lock for objectB and waiting for lock in ObjectA. Neither of them will attain the lock so it's a common deadlock scenario.
+
+To avoid deadlock, you should ensure that you acquire multiple locks in the same order in all threads.
+
+Additional APIs: waint(). notify(). notifyAll() 
+
+Network knowledge:
+models of connection: communication over a network can be classified into 2 types:
+1. circuit-switched: a dedicated channel exists to the remote machines.
+2. Packet-swtiched: data is divided into packets. Packet must contain the address of the destination.
+
+The instructions and convensions needed for this communication of remote machines is called protocol.
+
+The most popular model for layering is called: OSI reference model.network自顶向下有几个layer:
+
+1. application layer: the protocol used by applications, such as file transfer, distribted processing applications.
+2. presentation: responsible for agreed syntax. this layer may have to convert data between agreed representation to machine's native types.
+3. session: responsbile for connection establishment, data transfer and connection release. 
+4. transport: provides reliable end to end communication by providing service level transport addressing. It ensures packets arrive in correct order with integrity.
+5. network: relay and route information to the destination. This layer is responsible for managing the journey of packets.
+6. data link: provides the first level of organization of data, which includes source address,destination address, content, and checksum for error.
+7. physical: deals with voltage levels, transmission speed and connectors.
+
+
+Network Terminology:
+LAN: local area network
+Adapter: hardware interface for a node to be connected to LAN.Networking adapters are referred as Network Interface Cards.
+Hub:is a devicce that acts as a central point for LAN cable. 
+Ethernet:The most common network technology, meaning all the nodes share access to network media on equal basis.
+
+
+Clients and Servers:
+This model contains three components: the client, the server and the service. A service is a task that two machines can perform. 
+To offer a service, a server must get a transport address for a particular service. This is a well defined location that will serve to identify the service. The client wishing to have the service shall also get a transportation address. 
+
+We depend on a machine, which is called transport provider, to send message between the client and server. There are two categories of tranport protocols:
+1. Connection oriented protocols: messages are guaranteed to arrive in order:
+1.1 first you establish a connection, 比如打电话拨号
+1.2 negotiate a protocol: 选择用哪种语言交流
+1.3 communicate
+1.4 terminate the connection:挂断电话
+
+
+2. Connectionless protocols:很像sending mail:
+2.1 there is no connection setup
+2.2 data is transmitted when ready(drop a letter in the mailbox)
+2.3 there is no termination because there is no call setup.
+
+This transport is known as datagram service. With this service, the client is not positive whether the message arrived at the destination.
+
+Internet Protocol:
+Routing:Router is a switch element used to connect to two or more transmission lines. When the router gets a packet, it has to decide which line to send the packet. This process is called routing. 
+When the router receives an IP packet, it checks the destination address. If it matches one of the receiving system, then the packet is delivered locally. Otherwise, routers use the destination address to search in a routing table. If it matches, the packet can be sent out on the interface defined on the line. 
