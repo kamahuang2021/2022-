@@ -1,0 +1,63 @@
+A distributed system comprises a collection of autonomous computers, linked
+through a computer network and distribution middleware. To become autonomous there exist a clear master/slave association between two computers in the network.
+
+Physically a distributed system consists of a set of
+nodes (computers) linked together by a communication network. The nodes in the
+network are loosely coupled and do not share their memory. The nodes in the system
+communicate by passing messages over the communication network. Communication
+protocols are used for sending messages from one node to another. 
+
+characteristic of a distributed system:
+fault-tolerant: A system is said to be fault tolerant if it can mask the presence of faults. The aim of any fault tolerant system is to increase the reliability and availability. A reliable system prevents loss of information even in the
+event of component failures. Usually fault tolerance is achieved by providing redundancy.
+Redundancy is defined as those parts of the system that are not needed for its correct functioning. It is of three types – hardware, software and time. Hardware redundancy is achieved by adding extra hardware components to system which take over the role of failed components in case some faults occur in them. Software redundancy includes extra instructions and code included for managing the extra hardware components, and using them correctly for uninterrupted service, in case of some component failure. In time redundancy the same instruction is executed many times.This is used to handle temporary faults in the system.
+
+
+Scalable: the distributed system can operate correctly even some of the system is scaled to a larger size. Scale has three components: the number of users and the other entities in the system, the distance between the farthest node in the system, and the number of orgainziation that exert administration control over pieces in the system. Three techniques are employed to manage scale: replication, distribution and caching.
+
+Replication creates multiple copies of resources. Its use in naming, authentication and file services reduces the load on individual servers and improves the reliability and availability of the services as a whole. The two important issues of replication is the placement of replicas and the mechanisms by which they are kept consistent. The placement of replicas in a distribtued system depends on replicating the resource. if a service is being replicated to reduce the network delays when the service is accessed, the replicas are sprinkled across the system. 
+
+Distribution, another mechanism for managing scale in distributed systems, allows the information maintained by a distribtued service to be extended across several services. Distributing data across multiple servers reduces the size of database that must be maintined by each server, dropping the time needed to search for a database. Distribution also spreads the load across the servers reducing the number of requests that are handled by each. If requests can be distributed to servers in proportion to their power, the load on servers can be effectively managed. Network traffic can be reduced if data are assigned to servers close to the location from which they are most frequently used.
+
+Caching is another important technique for building distributed systems. Caching decreases the load on servers and the network. Cached data can be accessed faster if a new request is made. The difference between replication and caching is that each cached data is a short term data. Reading a file from the memory cached copy on the file server is faster than reading from the client's local disk.
+
+Predictable Performance: is the ability to provide desired responsiveness in a timely manner.
+
+Openness: Openness ensures that a subsystem is continually open to interact with other systems. An open system that scales has benefit over a completely closed and self-reliant system. A distributed system independant from heterogeneity of underlying environment such as hardware and software platforms achieves the property of openness. Therefore, every service is equally accessible to every client in the system.
+
+Security: The security feature are mainly intended to provide confidentiality, integrity and availability. 
+
+Transparency: Distributed system should be perceived by users and application developers as a whole rather than a collection of corporating components. The transparency can be employed in different ways in a distributed system. The transparency can be employed in different ways in a distributed system.
+
+1. access transparency: the users of the distributed system can access local and remote resources using identical oeprations.
+2. location transparency: names used to identyify network resources are indepdenet of both user's location and the resource location.Location transparency facililates a user to access resources from anywhere on the network without knowing where the resoure is located.
+3. Concurrency transparency: enables several processes to operate concurrently using shared information objects without interference between them. The users will not notice the existence of other users in the system even if they share the same resources.
+4. Replication transparency: enables the system to make additional copies of files and other resources for the purpose of performance, without user noticing. Ifa resource is replicated among several locations, it should appear to the user as a single resource.
+5. Failture transparency: enables the applications to complete their task despite failures occurring in certain components of the system.
+6. Migration transparency: facilitates the resource to move from one location to another without having their names changed. Users should not be aware of whether a resource or computing entity possess the ability to move to a different physical or logical location.
+7. performance transparency: The load variation should not lead to performance degradation. 
+8. Scalaibility transparency: allows the system to remain efficient even with a significant increase in the number of users and resources connected.
+
+
+Client Server Communication:
+Most of the data is processed on the server and only the results are returned to the client. This reduces the amount of network between the server and the client machine. 
+
+In database based 3-tier client server architecture, normally there are 3 essential components: a client computer,an application server and a database server. The application server is the middle tier server which runs the business application. The data retrieved from database server and it is forwarded to the client by the middle tier server. 
+
+A 3 tier client/server model known as proxy server model is commonly used to improve retrieval performance of the internet. The intermediate process: proxy server, distributes client request to several servers so that requests execute in parallel.
+
+The proxy server assesses the client requests based on its filtering policy. For example, it may filter traffic by IP address or protocol. If the request is authenticated by the filter, the proxy presents the resource by connecting to the appropriate server and demanding the required service for the client. A proxy servier with the ability to cache information is generally called a proxy cache sever. A proxy is sometimes used to authenticate users by asking them to identify themselves, such as with a username and password. 
+
+
+Advantages of client/ server model:
+1. Sever can manage resources that are common to all users.
+2. improved security is offered as the number of entry points giving access to data is not so important
+3. Server level adminstration is adequate as clients do not play in major role in the client/server model, they require less adminsitration
+4. A scalable network as it is possible to remove or add clients without affecting the opereation of the network and without the need for major modification.
+
+
+Disadvantages of client/server model:
+1. Increased cost due to the technical complexity of the server. 
+2. If a server failts, none of its clients will get service, unless it is designed to be fault-tolerant.
+3. If the network fails, all servers become unreachable.
+4. If one client produces high network traffic, then all clients may suffer from long response times.

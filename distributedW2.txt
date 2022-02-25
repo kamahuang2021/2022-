@@ -168,4 +168,76 @@ This transport is known as datagram service. With this service, the client is no
 
 Internet Protocol:
 Routing:Router is a switch element used to connect to two or more transmission lines. When the router gets a packet, it has to decide which line to send the packet. This process is called routing. 
-When the router receives an IP packet, it checks the destination address. If it matches one of the receiving system, then the packet is delivered locally. Otherwise, routers use the destination address to search in a routing table. If it matches, the packet can be sent out on the interface defined on the line. 
+When the router receives an IP packet, it checks the destination address. If it matches one of the receiving system, then the packet is delivered locally. Otherwise, routers use the destination address to search in a routing table. If it matches, the packet can be sent out on the interface defined on the line.
+
+Protocols over IP:
+IP supports 2 transport layer protocols and one special protocol. The special protocol is called ICMP. it's for generating control messages and is datagram basaed. The 2 transport layer protocols over UP are: TCP and UDP.
+
+TCP:
+1. send aknowledgement for each packet received
+2. checksum to validate data contents
+3. data may be transmitted simultaneously in both directions over a circuit
+4. dat arrives in sequence
+
+
+UDP: user datagram protocol:
+1. connectionless service
+2. data sent may be lost
+3. data may arrive out of sequence
+4. recipient's address must be specified in each request.
+
+Applications must use either protocol to send data over the network.
+
+
+Asynchronous transfer mode networks: ATM networks:
+One of the pitfalls of IP networking is that it has no mechanisms for application to specify how the traffic that it generates to be scheduled over the network.ATM attackes the problem by using fixed size packates over vertual cirtuits. A sender establishes a connection, specifying the bandwidth requirements and traffic type. If the connection is established, a route is determined and routing information is stored in switches within the network. All trafic carries in fixed size cells. Fiexed size cells provide for preditable scheduleing and rapid switching.
+
+
+Accessing applications:
+How do UDP and TCP associate with an application? By sockets. Sockets are an attempt at creating a generalized IPC model with the following goals:
+1. communication between processes shall not depend on whether they are on the same machine
+2. efficiency: this should be an efficient layer on top of network communication
+3. compatibility: processes that just read from a standard input fole and write to a standard output file should continue to work in distributed environments.
+4. must support different protocols and naming conventions
+
+
+the socket is an abstract object from which messages are sent and received. SOcket exists only as long as they are referenced. A socket allows an application to request a particular style of communication. (virtual circuit, datagram, massage based, in order delivery). Sockets exists only as long as they are referenced. 
+
+Multi-thread programming:
+In this chapter, we focus on learning how to write an application containing multiple tasks that can be executed concurrently. In java, this is realized by using multithreading techniques.
+
+Defining threads:
+A process is a program in execution. A process may be devided into a number of independent units known as threads. A thread is a dispathable unit of work. Threads are light-weight processes within a process. A process is a collection of one or more threads and associated with system resources.
+
+Multitasking of two or more processes is known as process-based multitasking. Multitasking of two or more threads is known as thread-based multitasking. The concept of multithreading in a programming language referes to thread based multitasking. Process based multitasking is controlled by the operating system.
+
+The concept of context switching is integral to threading. A hardware timer is used by the processor to determine the end of the timeslice for each thread. The timer signals at the end of the timesliece and in turn the processor saves all information requried for current thread onto a stack. Then the processor moves this information from the stack into a predefined data structure called a context structure. When the processor wants to switch back to a previously executing thread, it transfers all information from the context structure associated with the thread to the stack. The entire process is called context switching.
+
+Java supports thread based multitasking. The advantages of thread based multitasking is:
+1. threads share the same address space
+2. context switching between threads is normally inexpensive
+3. communication between threads is normally inexpensive.
+
+Threads in java:
+1. all threads within a process share the same state and same memory space, and can communicate with each other directly, because they share the same variables.
+
+
+Thread life cycle:
+1. new: a thread that is just initiated in new state. when start() is invoked. the thread moves to the ready state.
+2. Runnable: ready to run
+3. Blocked: a threaad is blocked waiting for monitor lock in this state.
+4. Waiting: a thread that is waiting for another thread to perform a particular action
+5. Timed_waiting: a thread is waiting for another thread to perform an action for up to a specified waiting time in this state.
+6. Terminated: dead
+
+
+Concurrent issues with thread programming:
+There are two very basic problems related to concurrent issues when dealing with multiple threads: read/write problem and producer consumer problem.
+
+If one thread thies to read the data and another thread tries to update the same data, it is known as read write problem, and it leads to inconsistent state for shared data. This can be prevented by synchronizing access to the data via java synchronized keyword.
+
+The problem describes two threads, the producer and the
+consumer, who share a common, fi xed-size buffer. The producer’s job is to generate a piece of data and put
+it into the buffer. The consumer is consuming the data from the same buffer simultaneously. The problem is
+to make sure that the producer will not try to add data into the buffer if it is full and that the consumer will not try to remove data from an empty buffer. 
+ 
